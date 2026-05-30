@@ -2,7 +2,7 @@ import User from "../models/userSchema.js";
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
- const register = async (req, res, next) => {
+ export const register = async (req, res, next) => {
   try {
     const { name, email, password, phone } = req.body;
     if (!email) {
@@ -28,7 +28,7 @@ import jwt from 'jsonwebtoken'
 };
 
 
-const login = async (req, res, next) => {
+export const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
     if (!email) {
