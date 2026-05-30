@@ -8,8 +8,6 @@ const PORT = process.env.PORT
 
 connection()
 
-
-
 app.listen(PORT,()=>{
     console.log(`server running on port ${PORT}`);
     
