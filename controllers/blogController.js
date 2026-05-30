@@ -3,7 +3,7 @@ import Blog from "../models/Blog.js";
 // Create Blog
 export const createBlog = async (req, res) => {
   try {
-    const { title, content, image } = req.body;
+    const { title, content } = req.body;
 
     if (!title || !content) {
       return res.status(400).json({
@@ -12,10 +12,12 @@ export const createBlog = async (req, res) => {
       });
     }
 
+    const imagePath = req.file ? `http://localhost:3000/uploads/${req.file.filename}` : "";
+
     const blog = await Blog.create({
       title,
       content,
-      image,
+      image: imagePath,
       author: req.user.userId, // from JWT middleware
     });
 
@@ -95,7 +97,12 @@ export const updateBlog = async (req, res) => {
 
     blog.title = title || blog.title;
     blog.content = content || blog.content;
-    blog.image = image || blog.image;
+    
+    if (req.file) {
+      blog.image = `http://localhost:3000/uploads/${req.file.filename}`;
+    } else if (req.body.image === "") {
+      blog.image = "";
+    }
 
     await blog.save();
 
