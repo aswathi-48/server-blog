@@ -10,6 +10,7 @@ const PORT = process.env.PORT
 
 connection()
 app.use(cors())
+app.use(express.json());
 
 app.use('/user',userRoutes)
 
